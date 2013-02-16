@@ -9,6 +9,23 @@ import org.dynmap.DynmapWorld;
 import org.dynmap.Log;
 
 public abstract class CoreMapChunkCache implements MapChunkCache {
+    protected DynmapWorld dw;
+    protected List<DynmapChunk> chunks;
+    protected ListIterator<DynmapChunk> iterator;
+
+    protected int x_min, x_max, y_min, y_max, z_min, z_max;
+    protected int x_dim;
+
+    protected int chunks_read;    /* Number of chunks actually loaded */
+    protected int chunks_attempted;   /* Number of chunks attempted to load */
+    protected long total_loadtime;    /* Total time loading chunks, in nanoseconds */
+
+    protected long exceptions;
+
+    protected static final BlockStep unstep[] = { BlockStep.X_MINUS, BlockStep.Y_MINUS, BlockStep.Z_MINUS,
+        BlockStep.X_PLUS, BlockStep.Y_PLUS, BlockStep.Z_PLUS
+    };
+
     protected HiddenChunkStyle hidestyle = HiddenChunkStyle.FILL_AIR;
     private List<VisibilityLimit> visible_limits = null;
     private List<VisibilityLimit> hidden_limits = null;
