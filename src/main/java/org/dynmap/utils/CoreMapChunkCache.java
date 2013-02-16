@@ -34,6 +34,21 @@ public abstract class CoreMapChunkCache implements MapChunkCache {
     protected boolean do_save = false;
     protected boolean isempty = true;
 
+    public void setVisibilityParameters(DynmapWorld world) {
+        if(world.visibility_limits != null) {
+            for(MapChunkCache.VisibilityLimit limit: world.visibility_limits) {
+                setVisibleRange(limit);
+            }
+            setHiddenFillStyle(world.hiddenchunkstyle);
+            setAutoGenerateVisbileRanges(world.do_autogenerate);
+        }
+        if(hidden_limits != null) {
+            for(MapChunkCache.VisibilityLimit limit: world.hidden_limits) {
+                setHiddenRange(limit);
+            }
+            setHiddenFillStyle(world.hiddenchunkstyle);
+        }
+    }
 
     public void setHiddenFillStyle(HiddenChunkStyle style) {
         this.hidestyle = style;
